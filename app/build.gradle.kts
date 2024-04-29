@@ -1,6 +1,8 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("com.google.devtools.ksp")
+    id("kotlin-kapt")
 }
 
 android {
@@ -60,6 +62,8 @@ dependencies {
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
     implementation("androidx.constraintlayout:constraintlayout-compose:1.0.1")
+    implementation("androidx.navigation:navigation-runtime-ktx:2.7.7")
+    implementation("com.google.android.libraries.mapsplatform.transportation:transportation-consumer:2.1.0")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
@@ -72,4 +76,23 @@ dependencies {
     implementation("androidx.compose.material:material-icons-core:<latest_version>")
     implementation("androidx.compose.material:material-icons-extended:<latest_version>")
     implementation("io.coil-kt:coil-compose:1.4.0")
+
+    //Retrofit
+    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.5.0")
+    implementation("com.squareup.picasso:picasso:2.71828")
+    implementation("io.coil-kt:coil-compose:2.2.2")
+    implementation("com.squareup.retrofit2:converter-jackson:2.9.0")
+    implementation("androidx.navigation:navigation-compose:2.7.7")
+    implementation("androidx.navigation:navigation-fragment-compose:2.8.0-alpha07")
+
+
+    val room_version = "2.6.1"
+    implementation("androidx.room:room-runtime:$room_version")
+    annotationProcessor("androidx.room:room-compiler:$room_version")
+//    ksp("androidx.room:room-compiler:$room_version")
+    kapt("androidx.room:room-compiler:$room_version")
+
+    implementation( "com.google.accompanist:accompanist-permissions:0.21.1-beta")
+
 }

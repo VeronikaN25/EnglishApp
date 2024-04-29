@@ -1,51 +1,87 @@
 package com.example.magicenglish
 
-import android.content.Intent
 import android.os.Bundle
-import android.text.Layout.Alignment
-import android.util.Log
-import android.window.SplashScreen
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.style.LineHeightStyle
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.magicenglish.screens.input.InputAppActivity
-import com.example.magicenglish.screens.login_screen.LoginScreen
-import com.example.magicenglish.ui.theme.MagicEnglishTheme
+import androidx.core.view.WindowCompat
+import com.example.magicenglish.bigineer_app_screens.BeginScreen
+
 import kotlinx.coroutines.delay
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        WindowCompat.setDecorFitsSystemWindows(window, false)
         setContent {
-            SplashScreen()
+           SplashScreen()
+//            RegistrationScreen()
+//            AccountScreen()
+//            MainScreen()
+//            GrammarTrainerContent()
+
         }
     }
 }
+
 @Composable
 fun SplashScreen(){
     val isLoading = remember { mutableStateOf(false) }
+    val isError = remember { mutableStateOf(false) }
 
     LaunchedEffect(key1 = true) {
-        isLoading.value = true
-        delay(2000)
-        isLoading.value = false
+        try {
+            isLoading.value = true
+            delay(2000)
+            isLoading.value = false
+        }catch (e:Exception){
+            isError.value = true
+            isLoading.value = false
+        }
     }
     if (isLoading.value) {
-
-        CircularProgressIndicator()
-    } else{
-        LoginScreen()
+        Box(
+            modifier = Modifier.fillMaxSize(),
+            contentAlignment = androidx.compose.ui.Alignment.Center
+        ) {
+            CircularProgressIndicator()
+        }
+    }else if(isError.value){
+        AlertDialog(
+            onDismissRequest = {
+                // Закрытие диалога
+                isError.value = false
+            },
+            title = {
+                Text(text = "Error loading data")
+            },
+            text = {
+                Text(text = "An error occurred while uploading the data. Please try again.")
+            },
+            confirmButton = {
+                Button(
+                    onClick = {
+                        // Повторная попытка загрузки данных
+                        isError.value = false
+                        isLoading.value = true
+                    }
+                ) {
+                    Text("Replay")
+                }
+            }
+        )
+    }
+    else{
+        BeginScreen()
     }
 }

@@ -23,10 +23,17 @@ private val DarkColorScheme = darkColorScheme(
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
+    primary = BgSocial,
+    secondary = Light,
     tertiary = Pink40,
     background = Blue,
+    onPrimary = BrandColor,
+    onSecondary = BorderColor,
+    onBackground = MidnightBlue,
+    onError = Tertirary,
+    onSurface = Lavender,
+    onTertiary = Green,
+
 )
 
 @Composable
