@@ -16,8 +16,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.core.view.WindowCompat
 import com.example.magicenglish.bigineer_app_screens.BeginScreen
-import com.example.magicenglish.grammar_trainer.action.utils.nounsTestQuestion
-import com.example.magicenglish.grammar_trainer.presentation.nouns_test.view.NounsTestScreen
+
 
 import kotlinx.coroutines.delay
 
