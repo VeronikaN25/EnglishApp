@@ -29,6 +29,7 @@ import com.example.magicenglish.components.navigation.NavigationItems
 
 
 
+@Preview(showBackground = true)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun MainScreen() {

@@ -16,6 +16,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.core.view.WindowCompat
 import com.example.magicenglish.bigineer_app_screens.BeginScreen
+import com.example.magicenglish.grammar_trainer.presentation.nouns_test.view.NounsTestScreen
 
 import kotlinx.coroutines.delay
 
@@ -24,12 +25,12 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         WindowCompat.setDecorFitsSystemWindows(window, false)
         setContent {
-           SplashScreen()
+//           SplashScreen()
 //            RegistrationScreen()
 //            AccountScreen()
 //            MainScreen()
 //            GrammarTrainerContent()
-
+            NounsTestScreen()
         }
     }
 }
