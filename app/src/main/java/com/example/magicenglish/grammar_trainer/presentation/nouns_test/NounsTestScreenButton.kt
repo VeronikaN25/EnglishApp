@@ -1,4 +1,4 @@
-package com.example.magicenglish.grammar_trainer.presentation.nouns_test.model
+package com.example.magicenglish.grammar_trainer.presentation.nouns_test
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -23,25 +23,24 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun TopAppBar(){
     TopAppBar(
         navigationIcon = {
-            IconButton(onClick = { /*TODO*/ }) {
+            IconButton(onClick = {}) {
                 Icon(Icons.Filled.ArrowBack,contentDescription = null, modifier = Modifier.size(55.dp))
             }
         },
         title = {  },
     )
 }
-@Preview(showBackground = true)
 @Composable
-fun NounsTestScreenButton(){
+fun NounsTestScreenButton(navController: NavController){
     TopAppBar()
     Column(
         modifier = Modifier

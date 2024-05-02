@@ -1,4 +1,4 @@
-package com.example.magicenglish.grammar_trainer.action.utils.view
+package com.example.magicenglish.grammar_trainer.action
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -29,8 +29,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
-import com.example.magicenglish.grammar_trainer.action.utils.QuestionPage
-import com.example.magicenglish.grammar_trainer.action.utils.TestQuestion
 import com.example.magicenglish.ui.theme.BrandColor
 
 @OptIn(ExperimentalMaterial3Api::class)

@@ -28,6 +28,9 @@
         </activity>
         <activity android:name=".bigineer_app_screens.LogInScreenActivity"/>
         <activity android:name=".bigineer_app_screens.RegistrationScreenActivity"/>
+        <activity android:name=".components.main_screen.MainScreenActivity"/>
+        <activity android:name=".grammar_trainer.data.GrammarTrainerActivity"/>
+
     </application>
 
 </manifest>

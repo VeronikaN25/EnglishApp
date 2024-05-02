@@ -1,5 +1,9 @@
-package com.example.magicenglish.grammar_trainer.data.repository
+package com.example.magicenglish.grammar_trainer.data
 
+import android.os.Bundle
+import android.os.PersistableBundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -26,20 +30,32 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.magicenglish.grammar_trainer.data.model.Utils.cardList
+import com.example.magicenglish.components.main_screen.HomeScreen
+import com.example.magicenglish.grammar_trainer.presentation.nouns_test.NounsTestScreenButton
 import com.example.magicenglish.ui.theme.Green
 import com.example.magicenglish.ui.theme.Lavender
 import com.example.magicenglish.ui.theme.Light
 
-
+class GrammarTrainerActivity : ComponentActivity(){
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContent {
+            GrammarTrainerContent()
+        }
+    }
+}
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TopAppBarGrammarTrainer(){
+fun TopAppBarGrammarTrainer(navController: NavController){
    TopAppBar(
        colors = TopAppBarDefaults.topAppBarColors(containerColor = Light, titleContentColor = Color.White, navigationIconContentColor = Color.White),
        navigationIcon = {
-           IconButton(onClick = { /*TODO*/ }) {
+           IconButton(onClick = {
+               navController.navigateUp()
+           }) {
                Icon(Icons.Filled.ArrowBack,contentDescription = null)
            }
        },
@@ -55,27 +71,27 @@ fun GrammarTrainerContent(){
             .fillMaxSize()
 //            .padding(horizontal = 20.dp)
     ) {
-        TopAppBarGrammarTrainer()
+        TopAppBarGrammarTrainer(navController = navController)
         Spacer(modifier = Modifier.height(20.dp))
         LazyColumn(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 20.dp),
         ){
-            items(cardList){card->
-               CardItem(navController = navController,card = card)
+            items(cardList){ card->
+               CardItem(card = card)
             }
         }
     }
 }
 @Composable
-fun CardItem(card: String,navController: NavController) {
+fun CardItem(card: String) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp)
             .clickable {
-
+//                navController.navigate(card.)
             },
         colors = CardDefaults.cardColors(containerColor = Lavender),
         border = BorderStroke(1.dp, color = Green)

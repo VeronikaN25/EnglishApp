@@ -58,6 +58,7 @@ import com.example.magicenglish.R
 import com.example.magicenglish.bigineer_app_screens.action_fun.ActionFun
 import com.example.magicenglish.bigineer_app_screens.action_fun.ActionFun.passwordVisibility
 import com.example.magicenglish.bigineer_app_screens.action_fun.ActionFun.togglePasswordVisibility
+import com.example.magicenglish.components.main_screen.MainScreenActivity
 import com.example.magicenglish.ui.theme.BorderColor
 import com.example.magicenglish.ui.theme.BrandColor
 import com.example.magicenglish.ui.theme.Green
@@ -169,7 +170,10 @@ fun LogInScreen(){
             Button(
                 modifier = Modifier.fillMaxWidth(),
                 colors = ButtonDefaults.buttonColors(containerColor = BrandColor, contentColor = Color.White),
-                onClick = { /*TODO*/ }
+                onClick = {
+                    val intent = Intent(context,MainScreenActivity::class.java)
+                    context.startActivity(intent)
+                }
             ) {
                 Text(text = "Log In", fontSize = 20.sp)
             }

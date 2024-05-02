@@ -1,6 +1,9 @@
-package com.example.magicenglish.grammar_trainer.data.model
+package com.example.magicenglish.grammar_trainer.data
 
-object Utils {
+data class Card(
+    val title: String,
+    val route: String // Маршрут (route) соответствующего экрана
+)
     val cardList= listOf(
         "Nouns",
         "Pronouns",
@@ -25,4 +28,3 @@ object Utils {
         "Prepositions",
         "Verbs - Vocabularies"
     )
-}

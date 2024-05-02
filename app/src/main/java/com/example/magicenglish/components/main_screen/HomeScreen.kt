@@ -1,5 +1,7 @@
 package com.example.magicenglish.components.main_screen
 
+import android.content.Intent
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -17,10 +19,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.magicenglish.grammar_trainer.data.GrammarTrainerActivity
+import com.example.magicenglish.grammar_trainer.data.GrammarTrainerContent
 import com.example.magicenglish.ui.theme.BrandColor
 import com.example.magicenglish.ui.theme.Lavender
 import com.example.magicenglish.ui.theme.Pink80
@@ -31,6 +36,7 @@ import com.example.magicenglish.ui.theme.Tertirary
 @Preview(showBackground = true)
 @Composable
 fun HomeScreen(){
+    val context = LocalContext.current
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -50,10 +56,13 @@ fun HomeScreen(){
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .size(120.dp),
+                    .size(120.dp)
+                    .clickable {
+                        val intent = Intent(context, GrammarTrainerActivity::class.java)
+                        context.startActivity(intent)
+                    },
                 colors = CardDefaults.cardColors(
                     containerColor = Purple80,
-
                 )
             ) {
                 Text(text = "Grammar Trainer", fontSize = 25.sp,

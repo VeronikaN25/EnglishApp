@@ -1,6 +1,10 @@
 package com.example.magicenglish.components.main_screen
 
 import android.annotation.SuppressLint
+import android.os.Bundle
+import android.os.PersistableBundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -27,7 +31,14 @@ import com.example.magicenglish.components.navigation.BottomBarNavGraph
 import com.example.magicenglish.components.navigation.BottomNavigationBar
 import com.example.magicenglish.components.navigation.NavigationItems
 
-
+class MainScreenActivity :ComponentActivity(){
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContent {
+            MainScreen()
+        }
+    }
+}
 
 @Preview(showBackground = true)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")

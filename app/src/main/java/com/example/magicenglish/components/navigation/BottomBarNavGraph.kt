@@ -9,7 +9,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.magicenglish.components.main_screen.AccountScreen
 import com.example.magicenglish.components.main_screen.HomeScreen
-import com.example.magicenglish.components.main_screen.VerbScreen
+import com.example.magicenglish.components.main_screen.NotesScreen
 
 @Composable
  fun BottomBarNavGraph(navController: NavHostController){
@@ -18,7 +18,7 @@ import com.example.magicenglish.components.main_screen.VerbScreen
             HomeScreen()
         }
         composable(NavigationItems.Note.route) {
-            VerbScreen()
+            NotesScreen()
 
         }
         composable(NavigationItems.Account.route) {

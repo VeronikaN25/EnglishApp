@@ -1,4 +1,4 @@
-package com.example.magicenglish.grammar_trainer.action.utils
+package com.example.magicenglish.grammar_trainer.action
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
