@@ -60,7 +60,7 @@ fun NounsTestScreenButton(){
             verticalArrangement = Arrangement.Center
         ) {
             if (isTestStarted) {
-               NounsTestScreen()
+//               NounsTestScreen()
             } else {
                 Text(text = "Are you ready?\nLet's start the test.", fontSize = 35.sp)
                 Spacer(modifier = Modifier.height(25.dp))

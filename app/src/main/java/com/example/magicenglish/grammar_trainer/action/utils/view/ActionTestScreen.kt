@@ -1,28 +1,21 @@
-package com.example.magicenglish.grammar_trainer.presentation.nouns_test.view
+package com.example.magicenglish.grammar_trainer.action.utils.view
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LinearProgressIndicator
-import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -35,9 +28,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
-import com.example.magicenglish.grammar_trainer.presentation.nouns_test.utils.NounsTestQuestion
+import com.example.magicenglish.grammar_trainer.action.utils.QuestionPage
+import com.example.magicenglish.grammar_trainer.action.utils.TestQuestion
 import com.example.magicenglish.ui.theme.BrandColor
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -58,14 +51,15 @@ private fun TopAppBarN(){
         },
     )
 }
-@Preview(showBackground = true)
+
 @Composable
-fun NounsTestScreen() {
+fun ActionTestScreen(testQuestions: List<TestQuestion>,) {
     var currentPage by remember { mutableStateOf(0) }
-    val totalPages = NounsTestQuestion.testQuestion.size
+    val totalPages = testQuestions.size
     val dialogState = remember { mutableStateOf(false) }
-    val isCorrectAnswer = remember { mutableStateOf(true) }// Состояние для отслеживания правильности ответа
-    val correctAnswer = remember { mutableStateOf("") }// Состояние для хранения правильного ответа
+    val isCorrectAnswer = remember { mutableStateOf(true) } // Состояние для отслеживания правильности ответа
+    val correctAnswer = remember { mutableStateOf("") } // Состояние для хранения правильного ответа
+    val testCompleted = remember { mutableStateOf(false) } // Состояние для отслеживания завершения теста
 
     Column(
         modifier = Modifier
@@ -75,16 +69,49 @@ fun NounsTestScreen() {
         Text(text = "Page ${currentPage + 1} of $totalPages", fontSize = 20.sp, fontWeight = FontWeight.Bold)
         Spacer(modifier = Modifier.height(25.dp))
         if (currentPage < totalPages) {
-            val question = NounsTestQuestion.testQuestion[currentPage]
+            val question = testQuestions[currentPage]
             QuestionPage(question.question, question.options) { answer ->
                 // Проверка правильности ответа
                 isCorrectAnswer.value = (answer == question.correctAnswer)
                 correctAnswer.value = question.correctAnswer
                 dialogState.value = true
             }
-        } else {
-            // Все вопросы пройдены
-            Text("Test completed!", fontSize = 35.sp)
+        }else{
+            testCompleted.value = true
+        }
+
+        if (testCompleted.value) {
+            val totalQuestions = testQuestions.size
+            val correctAnswers = if (isCorrectAnswer.value) 1 else 0 // Если ответ верный, установим 1, в противном случае 0
+            val incorrectAnswers = totalQuestions - correctAnswers
+            val score = (correctAnswers.toFloat() / totalQuestions.toFloat()) * 100
+
+            Column(
+                modifier = Modifier.fillMaxSize(),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(
+                    text = "Test completed!",
+                    fontSize = 35.sp
+                )
+                Text(
+                    text = "Total Questions: $totalQuestions",
+                    fontSize = 20.sp
+                )
+                Text(
+                    text = "Correct Answers: $correctAnswers",
+                    fontSize = 20.sp
+                )
+                Text(
+                    text = "Incorrect Answers: $incorrectAnswers",
+                    fontSize = 20.sp
+                )
+                Text(
+                    text = "Score: ${"%.2f".format(score)}%",
+                    fontSize = 20.sp
+                )
+            }
         }
 
         if (dialogState.value){
@@ -118,45 +145,5 @@ fun NounsTestScreen() {
     }
 }
 
-@Composable
-fun QuestionPage(
-    question: String,
-    options: List<String>,
-    onNextClicked: (String) -> Unit
-) {
-    Column(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-        Text(text = question, fontSize = 20.sp)
-        Spacer(modifier = Modifier.height(25.dp))
-        options.forEach { option ->
-            OptionButton(option) { onNextClicked(option) }
-        }
-    }
-}
 
-@Composable
-fun OptionButton(option: String, onClick: () -> Unit) {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 8.dp)
-            .clickable(onClick = onClick),
-        elevation = CardDefaults.cardElevation(8.dp),
-        shape = RoundedCornerShape(8.dp),
-    ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.padding(16.dp)
-        ) {
-            RadioButton(
-                selected = false,
-                onClick = null
-            )
-            Text(option, modifier = Modifier.padding(start = 8.dp))
-        }
-    }
-}
 

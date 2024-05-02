@@ -36,6 +36,7 @@ fun RowScope.AddItem(
             navController.navigate(screen.route){
                 popUpTo(navController.graph.startDestinationId)
                 launchSingleTop = true
+                restoreState = true
             }
         }
     )
