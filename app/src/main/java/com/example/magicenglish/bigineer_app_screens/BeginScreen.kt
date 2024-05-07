@@ -1,6 +1,10 @@
 package com.example.magicenglish.bigineer_app_screens
 
 import android.content.Intent
+import android.os.Bundle
+import android.os.PersistableBundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -45,8 +49,15 @@ import com.example.magicenglish.ui.theme.Light
 import com.example.magicenglish.ui.theme.MidnightBlue
 import com.example.magicenglish.ui.theme.Tertirary
 
+class BeginScreenActivity : ComponentActivity(){
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContent {
+            BeginScreen()
+        }
+    }
+}
 
-@Preview(showBackground = true)
 @Composable
 fun BeginScreen() {
     val context= LocalContext.current
@@ -70,7 +81,9 @@ fun BeginScreen() {
                     colors = CardDefaults.cardColors(containerColor = Color.White)
                 ) {
                     Row(
-                        modifier = Modifier.fillMaxWidth().padding(top=35.dp),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = 35.dp),
                         horizontalArrangement = Arrangement.Center) {
                         Text(
                             fontWeight = FontWeight.Bold,

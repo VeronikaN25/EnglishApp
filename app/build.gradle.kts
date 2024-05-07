@@ -92,7 +92,11 @@ dependencies {
     annotationProcessor("androidx.room:room-compiler:$room_version")
 //    ksp("androidx.room:room-compiler:$room_version")
     kapt("androidx.room:room-compiler:$room_version")
+    implementation ("androidx.room:room-ktx:$room_version")
 
     implementation( "com.google.accompanist:accompanist-permissions:0.21.1-beta")
+
+    //lottie animation
+    implementation("com.airbnb.android:lottie-compose:6.0.1")
 
 }

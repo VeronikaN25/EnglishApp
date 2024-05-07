@@ -10,7 +10,7 @@ data class Card(
         "Present Tenses",
         "Past Tenses",
         "Future Tenses",
-        "Determiners",
+//        "Determiners",
         "Adjectives",
         "Adjectives-Comparisons",
         "Adverbs",
@@ -28,3 +28,4 @@ data class Card(
         "Prepositions",
         "Verbs - Vocabularies"
     )
+

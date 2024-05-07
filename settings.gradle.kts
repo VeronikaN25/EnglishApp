@@ -15,4 +15,3 @@ dependencyResolutionManagement {
 
 rootProject.name = "MagicEnglish"
 include(":app")
- 
