@@ -128,7 +128,6 @@ fun BeginScreen() {
                                 text = "Sign Up")
                         }
                     }
-
                 }
             }
         }

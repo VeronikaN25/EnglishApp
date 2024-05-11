@@ -63,7 +63,6 @@ dependencies {
     implementation("androidx.compose.material3:material3")
     implementation("androidx.constraintlayout:constraintlayout-compose:1.0.1")
     implementation("androidx.navigation:navigation-runtime-ktx:2.7.7")
-    implementation("com.google.android.libraries.mapsplatform.transportation:transportation-consumer:2.1.0")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
@@ -86,17 +85,26 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:2.7.7")
     implementation("androidx.navigation:navigation-fragment-compose:2.8.0-alpha07")
 
-
+    //room
     val room_version = "2.6.1"
     implementation("androidx.room:room-runtime:$room_version")
     annotationProcessor("androidx.room:room-compiler:$room_version")
-//    ksp("androidx.room:room-compiler:$room_version")
     kapt("androidx.room:room-compiler:$room_version")
     implementation ("androidx.room:room-ktx:$room_version")
+    implementation(" androidx.room:room-paging:$room_version")
+
+    //paging
+    val paging_version = "3.1.1"
+    implementation ("androidx.paging:paging-runtime:$paging_version")
+    implementation ("androidx.paging:paging-compose:1.0.0-alpha17")
 
     implementation( "com.google.accompanist:accompanist-permissions:0.21.1-beta")
 
     //lottie animation
     implementation("com.airbnb.android:lottie-compose:6.0.1")
+
+   implementation("io.ktor:ktor-client-core:2.3.11")
+    implementation("io.ktor:ktor-client-cio:2.3.11")
+    implementation("io.ktor:ktor-client-okhttp:2.3.11")
 
 }
