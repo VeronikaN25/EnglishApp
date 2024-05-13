@@ -3,11 +3,13 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("com.google.devtools.ksp")
     id("kotlin-kapt")
+    id ("com.google.gms.google-services")
 }
 
 android {
     namespace = "com.example.magicenglish"
     compileSdk = 34
+
 
     defaultConfig {
         applicationId = "com.example.magicenglish"
@@ -57,12 +59,11 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
     implementation("androidx.activity:activity-compose:1.9.0")
     implementation(platform("androidx.compose:compose-bom:2023.08.00"))
-    implementation("androidx.compose.ui:ui")
+    implementation("androidx.compose.ui:ui:")
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
     implementation("androidx.constraintlayout:constraintlayout-compose:1.0.1")
-    implementation("androidx.navigation:navigation-runtime-ktx:2.7.7")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
@@ -70,10 +71,14 @@ dependencies {
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
+    implementation( "com.google.accompanist:accompanist-permissions:0.21.1-beta")
 
+    //icons
     implementation("androidx.core:core-splashscreen:1.0.1")
     implementation("androidx.compose.material:material-icons-core:<latest_version>")
     implementation("androidx.compose.material:material-icons-extended:<latest_version>")
+    //lottie animation
+    implementation("com.airbnb.android:lottie-compose:6.0.1")
     implementation("io.coil-kt:coil-compose:1.4.0")
 
     //Retrofit
@@ -83,28 +88,41 @@ dependencies {
     implementation("io.coil-kt:coil-compose:2.2.2")
     implementation("com.squareup.retrofit2:converter-jackson:2.9.0")
     implementation("androidx.navigation:navigation-compose:2.7.7")
-    implementation("androidx.navigation:navigation-fragment-compose:2.8.0-alpha07")
 
+    //navigation
+    implementation("androidx.navigation:navigation-fragment-compose:2.8.0-alpha07")
+    implementation("androidx.navigation:navigation-runtime-ktx:2.7.7")
+    implementation ("androidx.navigation:navigation-compose:2.5.3")
+    
     //room
     val room_version = "2.6.1"
     implementation("androidx.room:room-runtime:$room_version")
     annotationProcessor("androidx.room:room-compiler:$room_version")
     kapt("androidx.room:room-compiler:$room_version")
     implementation ("androidx.room:room-ktx:$room_version")
-    implementation(" androidx.room:room-paging:$room_version")
 
-    //paging
-    val paging_version = "3.1.1"
-    implementation ("androidx.paging:paging-runtime:$paging_version")
-    implementation ("androidx.paging:paging-compose:1.0.0-alpha17")
-
-    implementation( "com.google.accompanist:accompanist-permissions:0.21.1-beta")
-
-    //lottie animation
-    implementation("com.airbnb.android:lottie-compose:6.0.1")
-
-   implementation("io.ktor:ktor-client-core:2.3.11")
+    //ktor
+    implementation("io.ktor:ktor-client-core:2.3.11")
     implementation("io.ktor:ktor-client-cio:2.3.11")
     implementation("io.ktor:ktor-client-okhttp:2.3.11")
+
+    // Firebase
+    implementation ("com.google.firebase:firebase-auth-ktx:22.0.0")
+    implementation ("com.google.firebase:firebase-firestore-ktx:24.6.0")
+    implementation("com.google.android.gms:play-services-auth:20.4.1")
+    implementation(platform("com.google.firebase:firebase-bom:33.0.0"))
+
+    //viewmodel
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
+    implementation( "androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1")
+    implementation ("androidx.lifecycle:lifecycle-runtime-compose:2.6.1")
+
+
+    // Dagger-Hilt
+    implementation ("com.google.dagger:hilt-android:2.45")
+    kapt ("com.google.dagger:hilt-android-compiler:2.45")
+    kapt ("androidx.hilt:hilt-compiler:1.0.0")
+    implementation ("androidx.hilt:hilt-navigation-compose:1.0.0")
+
 
 }
