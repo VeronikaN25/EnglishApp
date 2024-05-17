@@ -71,7 +71,10 @@ dependencies {
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
-    implementation( "com.google.accompanist:accompanist-permissions:0.21.1-beta")
+
+    implementation ("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.0")
+    implementation ("androidx.compose.foundation:foundation:1.0.0")
+
 
     //icons
     implementation("androidx.core:core-splashscreen:1.0.1")
@@ -111,6 +114,8 @@ dependencies {
     implementation ("com.google.firebase:firebase-firestore-ktx:24.6.0")
     implementation("com.google.android.gms:play-services-auth:20.4.1")
     implementation(platform("com.google.firebase:firebase-bom:33.0.0"))
+    implementation("com.google.firebase:firebase-auth:23.0.0")
+    implementation( "com.google.accompanist:accompanist-permissions:0.21.1-beta")
 
     //viewmodel
     implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
@@ -123,6 +128,8 @@ dependencies {
     kapt ("com.google.dagger:hilt-android-compiler:2.45")
     kapt ("androidx.hilt:hilt-compiler:1.0.0")
     implementation ("androidx.hilt:hilt-navigation-compose:1.0.0")
+
+    implementation ("androidx.datastore:datastore-preferences:1.0.0")
 
 
 }

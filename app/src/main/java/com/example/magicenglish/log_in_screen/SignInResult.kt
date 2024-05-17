@@ -1,4 +1,4 @@
-package com.example.magicenglish.bigineer_app_screens.presentation.sign_in
+package com.example.magicenglish.log_in_screen
 
 
 data class SignInResult(

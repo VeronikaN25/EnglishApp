@@ -1,4 +1,4 @@
-package com.example.magicenglish.components.main_screen
+package com.example.magicenglish.inside_app_components.main_screen
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize

@@ -1,24 +1,19 @@
 package com.example.magicenglish.grammar_trainer.action
 
 import android.annotation.SuppressLint
-import android.os.Bundle
-import android.os.PersistableBundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.compose.foundation.background
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.AlertDialog
@@ -27,38 +22,33 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.LinearProgressIndicator
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.compose.material3.TopAppBar
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.substring
 import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.example.magicenglish.ui.theme.BrandColor
+import com.example.magicenglish.ui.theme.DarkBlue
+import com.example.magicenglish.ui.theme.DarkRed
+import com.example.magicenglish.ui.theme.DeepSkyBlue
+import com.example.magicenglish.ui.theme.LawnGreen
+import com.example.magicenglish.ui.theme.Orange
 
-class ActionTestScreenActivity : ComponentActivity(){
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            ActionTestScreen(testQuestions = nounsTestQuestion)
-        }
-    }
-}
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TopAppBar(navController: NavController){
@@ -81,21 +71,24 @@ fun TopAppBar(navController: NavController){
             onDismissRequest = { dialogState.value = false },
             title = {},
             text = {
-                Text("Do you really want to get out?")
+                Text("Do you really want to get out?", fontWeight = FontWeight.Bold,
+                    fontSize = 20.sp)
             },
             confirmButton = {
                 Button(
+                    colors = ButtonDefaults.buttonColors(LawnGreen),
                     onClick = {
-                        dialogState.value = false
-                        navController.navigateUp()
+
                     }
                 ) {
                     Text("Yes")
                 }
             },
             dismissButton = {
-                Button(onClick = {
-                    dialogState.value=false
+                Button(
+                    colors = ButtonDefaults.buttonColors(DarkRed),
+                    onClick = {
+
                 }) {
                     Text(text = "No")
                 }
@@ -103,11 +96,13 @@ fun TopAppBar(navController: NavController){
         )
     }
 }
-
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "SuspiciousIndentation")
 @Composable
 fun ActionTestScreen(testQuestions: List<TestQuestion>) {
     val navController = rememberNavController()
+
+    val context = LocalContext.current
+    val isNetworkAvailable = remember { isNetworkAvailable(context) }
 
     var currentPage by remember { mutableStateOf(0) }
     val totalPages = testQuestions.size
@@ -126,33 +121,103 @@ fun ActionTestScreen(testQuestions: List<TestQuestion>) {
             val totalQuestions = testQuestions.size
             val incorrectAnswers = totalQuestions - correctAnswersCount
             val score = (correctAnswersCount.toFloat() / totalQuestions.toFloat()) * 100
-
-            // Отображаем результаты теста по середине экрана
-            Column(
+            Box(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .wrapContentSize()
+                    .fillMaxSize()
                     .padding(16.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
+                contentAlignment = Alignment.Center
             ) {
-                Text(
-                    text = "Test completed!\nScore: ${score.toInt()}%\nCorrect answer: $correctAnswersCount\nIncorrect answer: $incorrectAnswers",
-                    fontSize = 20.sp,
-                    fontWeight = FontWeight.Bold,
-                    textAlign = TextAlign.Center
-                )
-                Spacer(modifier = Modifier.height(16.dp))
-                Button(
-                    onClick = {
-
-                    }
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
                 ) {
-                    Text("Вернуться к списку")
+                    Text(
+                        text = buildAnnotatedString {
+                            withStyle(
+                                style = SpanStyle(
+                                    DarkBlue,
+                                    fontSize = 35.sp,
+                                    fontWeight = FontWeight.Bold
+                                )
+                            ) {
+                                append("Test completed!  ")
+                            }
+                            withStyle(
+                                style = SpanStyle(
+                                    DeepSkyBlue,
+                                    fontSize = 35.sp,
+                                    fontWeight = FontWeight.Bold
+                                )
+                            ) {
+                                append("  ${score.toInt()}%\n")
+                            }
+                            append("Correct answers: ")
+                            withStyle(style = SpanStyle(color = LawnGreen, fontSize = 25.sp)) {
+                                append("$correctAnswersCount\n")
+                            }
+                            append("Incorrect answers: ")
+                            withStyle(style = SpanStyle(color = DarkRed, fontSize = 25.sp)) {
+                                append("$incorrectAnswers")
+                            }
+                        },
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight.Bold,
+                        textAlign = TextAlign.Center,
+                        lineHeight = 60.sp
+                    )
+                    Spacer(modifier = Modifier.height(16.dp))
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = 20.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.Center,
+                    ) {
+                        Button(
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = Orange,
+                                contentColor = Color.White
+                            ),
+                            modifier = Modifier.height(56.dp),
+                            onClick = {
+
+                            }
+                        ) {
+                            Text("Back to list", fontSize = 20.sp)
+                        }
+                    }
                 }
             }
-        } else {
-            TopAppBar(navController = navController)
+        } else if(!isNetworkAvailable){
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(16.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
+                ) {
+                    Text(
+                        text = "No network connection.\nPlease check your internet connection and try again.",
+                        color = Color.Red,
+                        fontSize = 18.sp,
+                        textAlign = TextAlign.Center
+                    )
+                    Spacer(modifier = Modifier.height(16.dp))
+                    Button(
+                        onClick = { /* Retry logic or other handling */ }
+                    ) {
+                        Text("Retry")
+                    }
+                }
+            }
+        }
+        else {
+            Row {
+                TopAppBar(navController = navController)
+            }
             Text(
                 text = "Page ${currentPage + 1} of $totalPages",
                 fontSize = 20.sp,
@@ -177,9 +242,23 @@ fun ActionTestScreen(testQuestions: List<TestQuestion>) {
             }
         }
         if (dialogState.value) {
-            val message =
-                if (isCorrectAnswer.value) "Correct answer" else "Incorrect answer!\nThe correct answer is  ${correctAnswer.value}"
-            val correctAnswerText = "Correct answer is"
+            val message = if (isCorrectAnswer.value) {
+                buildAnnotatedString {
+                    withStyle(style = SpanStyle(LawnGreen, fontWeight = FontWeight.Bold)) {
+                        append("Correct answer !")
+                    }
+                }
+            } else {
+                buildAnnotatedString {
+                    withStyle(style = SpanStyle(DarkRed, fontWeight = FontWeight.Bold),) {
+                        append("Incorrect answer ! \n")
+                    }
+                    append("The correct answer is \n")
+                    withStyle(style = SpanStyle(LawnGreen, fontWeight = FontWeight.Bold)) {
+                        append(correctAnswer.value)
+                    }
+                }
+            }
             AlertDialog(
                 onDismissRequest = {
                     dialogState.value = false
@@ -193,7 +272,7 @@ fun ActionTestScreen(testQuestions: List<TestQuestion>) {
                 confirmButton = {
                     Button(
                         colors = ButtonDefaults.buttonColors(
-                            containerColor = Color.Gray,
+                            containerColor = DarkBlue,
                             contentColor = Color.White
                         ),
                         onClick = {
@@ -212,4 +291,9 @@ fun ActionTestScreen(testQuestions: List<TestQuestion>) {
     }
 }
 
-
+fun isNetworkAvailable(context: Context): Boolean {
+    val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    val activeNetwork = connectivityManager.activeNetwork ?: return false
+    val networkCapabilities = connectivityManager.getNetworkCapabilities(activeNetwork) ?: return false
+    return networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+}
