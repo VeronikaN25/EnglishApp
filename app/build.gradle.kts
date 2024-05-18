@@ -4,6 +4,7 @@ plugins {
     id("com.google.devtools.ksp")
     id("kotlin-kapt")
     id ("com.google.gms.google-services")
+//    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -55,7 +56,7 @@ android {
 
 dependencies {
 
-    implementation("androidx.core:core-ktx:1.13.0")
+    implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
     implementation("androidx.activity:activity-compose:1.9.0")
     implementation(platform("androidx.compose:compose-bom:2023.08.00"))
@@ -75,39 +76,36 @@ dependencies {
     implementation ("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.0")
     implementation ("androidx.compose.foundation:foundation:1.0.0")
 
+    // System ui controller
+    implementation ("com.google.accompanist:accompanist-systemuicontroller:0.27.0")
 
     //icons
     implementation("androidx.core:core-splashscreen:1.0.1")
     implementation("androidx.compose.material:material-icons-core:<latest_version>")
     implementation("androidx.compose.material:material-icons-extended:<latest_version>")
+
     //lottie animation
     implementation("com.airbnb.android:lottie-compose:6.0.1")
     implementation("io.coil-kt:coil-compose:1.4.0")
 
     //Retrofit
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.5.0")
-    implementation("com.squareup.picasso:picasso:2.71828")
-    implementation("io.coil-kt:coil-compose:2.2.2")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("com.squareup.retrofit2:converter-jackson:2.9.0")
-    implementation("androidx.navigation:navigation-compose:2.7.7")
+    implementation ("com.squareup.okhttp3:okhttp:4.11.0")
+    implementation ("com.squareup.okhttp3:logging-interceptor:4.10.0")
 
     //navigation
     implementation("androidx.navigation:navigation-fragment-compose:2.8.0-alpha07")
     implementation("androidx.navigation:navigation-runtime-ktx:2.7.7")
-    implementation ("androidx.navigation:navigation-compose:2.5.3")
-    
-    //room
-    val room_version = "2.6.1"
-    implementation("androidx.room:room-runtime:$room_version")
-    annotationProcessor("androidx.room:room-compiler:$room_version")
-    kapt("androidx.room:room-compiler:$room_version")
-    implementation ("androidx.room:room-ktx:$room_version")
+    implementation ("androidx.navigation:navigation-compose:2.7.7")
 
-    //ktor
-    implementation("io.ktor:ktor-client-core:2.3.11")
-    implementation("io.ktor:ktor-client-cio:2.3.11")
-    implementation("io.ktor:ktor-client-okhttp:2.3.11")
+    //room
+    val room_version = "2.3.0"
+    implementation("androidx.room:room-runtime:$room_version")
+    kapt("androidx.room:room-compiler:$room_version")
+    implementation ("androidx.room:room-ktx:2.3.0")
+
 
     // Firebase
     implementation ("com.google.firebase:firebase-auth-ktx:22.0.0")
@@ -118,18 +116,22 @@ dependencies {
     implementation( "com.google.accompanist:accompanist-permissions:0.21.1-beta")
 
     //viewmodel
-    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
-    implementation( "androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1")
-    implementation ("androidx.lifecycle:lifecycle-runtime-compose:2.6.1")
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.0")
+    implementation( "androidx.lifecycle:lifecycle-viewmodel-compose:2.8.0")
+    implementation ("androidx.lifecycle:lifecycle-runtime-ktx:2.8.0")
 
 
     // Dagger-Hilt
-    implementation ("com.google.dagger:hilt-android:2.45")
-    kapt ("com.google.dagger:hilt-android-compiler:2.45")
-    kapt ("androidx.hilt:hilt-compiler:1.0.0")
-    implementation ("androidx.hilt:hilt-navigation-compose:1.0.0")
+    implementation ("com.google.dagger:hilt-android:2.49")
+    kapt ("com.google.dagger:hilt-android-compiler:2.44")
+    kapt ("androidx.hilt:hilt-compiler:1.2.0")
+    implementation ("androidx.hilt:hilt-navigation-compose:1.2.0")
 
     implementation ("androidx.datastore:datastore-preferences:1.0.0")
+
+    // Coroutines
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
 
 
 }
